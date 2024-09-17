@@ -1,3 +1,21 @@
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getFirestore, collection, addDoc } from "firebase/firestore";
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyDYvx17Z6qTPjX3ifTlRC8dZSKlK_eiBbc",
+  authDomain: "controlefinanceiro-3104a.firebaseapp.com",
+  projectId: "controlefinanceiro-3104a",
+  storageBucket: "controlefinanceiro-3104a.appspot.com",
+  messagingSenderId: "178282151405",
+  appId: "1:178282151405:web:81fc33228256db39b3fbe4"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
 document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById('financial-form');
     const transactionList = document.getElementById('transaction-list');
@@ -36,9 +54,6 @@ document.addEventListener("DOMContentLoaded", function () {
         return true;
     }
 
-    // Inicializar o Firestore
-    const db = firebase.firestore();
-
     form.addEventListener('submit', function (e) {
         e.preventDefault();
 
@@ -51,11 +66,11 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         // Salvar transação no Firestore
-        db.collection("transactions").add({
+        addDoc(collection(db, "transactions"), {
             description: description,
             value: value,
             category: category,
-            timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            timestamp: new Date()
         }).then(() => {
             // Adicionar transação à lista localmente
             addTransaction(description, value, category);
