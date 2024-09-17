@@ -5,24 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Acompanhamento Financeiro</title>
     <link rel="stylesheet" href="styles.css">
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
-    <script>
-        // Firebase configuration
-        const firebaseConfig = {
-          apiKey: "AIzaSyDYvx17Z6qTPjX3ifTlRC8dZSKlK_eiBbc",
-          authDomain: "controlefinanceiro-3104a.firebaseapp.com",
-          projectId: "controlefinanceiro-3104a",
-          storageBucket: "controlefinanceiro-3104a.appspot.com",
-          messagingSenderId: "178282151405",
-          appId: "1:178282151405:web:81fc33228256db39b3fbe4"
-        };
+    <!-- Firebase App (compatibilidade com navegadores antigos) -->
+	<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
 
-        // Initialize Firebase
-        const app = firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
-    </script>
+	<script>
+		// Firebase configuration
+		const firebaseConfig = {
+		  apiKey: "AIzaSyDYvx17Z6qTPjX3ifTlRC8dZSKlK_eiBbc",
+		  authDomain: "controlefinanceiro-3104a.firebaseapp.com",
+		  projectId: "controlefinanceiro-3104a",
+		  storageBucket: "controlefinanceiro-3104a.appspot.com",
+		  messagingSenderId: "178282151405",
+		  appId: "1:178282151405:web:81fc33228256db39b3fbe4"
+		};
+
+		// Initialize Firebase
+		firebase.initializeApp(firebaseConfig);
+		const db = firebase.firestore();
+	</script>
 </head>
 <body>
     <header>
