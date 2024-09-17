@@ -36,6 +36,9 @@ document.addEventListener("DOMContentLoaded", function () {
         return true;
     }
 
+    // Inicializar o Firestore
+    const db = firebase.firestore();
+
     form.addEventListener('submit', function (e) {
         e.preventDefault();
 
@@ -47,22 +50,32 @@ document.addEventListener("DOMContentLoaded", function () {
             return; // Aborta a adição se o valor for inválido
         }
 
-        // Adicionar transação à lista
-        addTransaction(description, value, category);
+        // Salvar transação no Firestore
+        db.collection("transactions").add({
+            description: description,
+            value: value,
+            category: category,
+            timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        }).then(() => {
+            // Adicionar transação à lista localmente
+            addTransaction(description, value, category);
 
-        // Atualizar os totais com base na categoria
-        if (category === 'renda') {
-            totalRenda += value;
-        } else if (category === 'despesa') {
-            totalDespesas += value;
-        } else if (category === 'divida') {
-            totalDividas += value;
-        }
+            // Atualizar os totais com base na categoria
+            if (category === 'renda') {
+                totalRenda += value;
+            } else if (category === 'despesa') {
+                totalDespesas += value;
+            } else if (category === 'divida') {
+                totalDividas += value;
+            }
 
-        // Atualizar a visão geral
-        updateOverview();
+            // Atualizar a visão geral
+            updateOverview();
 
-        // Limpar o formulário
-        form.reset();
+            // Limpar o formulário
+            form.reset();
+        }).catch((error) => {
+            console.error("Erro ao salvar transação: ", error);
+        });
     });
 });
